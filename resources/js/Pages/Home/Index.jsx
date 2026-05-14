@@ -3,6 +3,7 @@ import { Head } from '@inertiajs/react';
 
 import { AnimatedSection } from '@/Components/Layout/AnimatedSection';
 
+
 export default function Home() {
     return (
         <MainLayout>
