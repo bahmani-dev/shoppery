@@ -27,7 +27,7 @@ export default function IntroModal() {
                 <div className="flex items-center relative top-3 flex-col">
                 <h1 className="text-[18px] font-semibold md:mt-[40px] text-center md:text-[33px]">Subcribe to Our <br/>Newsletter</h1>
                 <h2 className="p-2 text-center md:text-[17px]">Subscribe to our newlletter and Save your <span className="text-orange-700">20% money</span> with discount code today.</h2>
-                <input type="email" className="w-[250px] mt-5 mb-2 rounded-[46px]" />
+                <input type="email" placeholder="Enter your email" className="w-[250px] md:w-[300px] sm:w-[330px] lg:w-[350px] mt-5 mb-2 rounded-[46px]" />
                 <button className="text-white bg-[#00B207] w-[150px] mt-3 shadow-lg h-[40px] rounded-[43px]">Subscribe</button>
                 <button className="mt-2 text-red-700 md:hidden" onClick={()=> setOpen(false)}>Close</button>
                    <button className="mt-2 text-red-700 hidden md:block absolute top-[-20px] text-3xl right-6" onClick={()=> setOpen(false)}>x</button>
