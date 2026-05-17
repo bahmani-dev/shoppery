@@ -2,6 +2,7 @@ import MainLayout from '@/Components/Layout/MainLayout';
 import { Head } from '@inertiajs/react';
 
 import { AnimatedSection } from '@/Components/Layout/AnimatedSection';
+import News from './News';
 
 export default function Home() {
     return (
@@ -38,6 +39,7 @@ export default function Home() {
                             />
                         </div>
                     </div>
+                    <News />
                 </section>
             </AnimatedSection>
         </MainLayout>
