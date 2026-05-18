@@ -31,7 +31,7 @@ const Services = () => {
     return (
         <AnimatedSection className="relative flex justify-center">
             <section className="container z-10 mx-auto flex justify-center px-4 py-20">
-                <div className="flex rounded-[8px] border-[1px] border-[#ccc] bg-white shadow-lg">
+                <div className="flex rounded-[8px] border-[1px] border-[#ccc] bg-white shadow-md">
                     {Service.map((item) => {
                         return (
                             <div
@@ -54,7 +54,6 @@ const Services = () => {
                     })}
                 </div>
             </section>
-            <div className="absolute bottom-0 z-[-10px] h-[50%] w-full bg-[#EDF2EE]"></div>
         </AnimatedSection>
     );
 };
