@@ -31,7 +31,11 @@ Route::get('/about', function () {
 Route::get('/contact', function () {
     return Inertia::render('Contact/Index');
 });
-
+Route::fallback(function () {
+    return Inertia::render('Errors/NotFound')
+        ->toResponse(request())
+        ->setStatusCode(404);
+});
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard/Index');
 })->middleware(['auth', 'verified'])->name('dashboard');
