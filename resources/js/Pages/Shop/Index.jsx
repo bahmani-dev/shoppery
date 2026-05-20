@@ -1,9 +1,12 @@
 import Breadcrumb from '@/Components/Breadcrumb';
 import MainLayout from '@/Components/Layout/MainLayout';
+import Bannar from './Bannar';
+import { Head } from '@inertiajs/react';
 
 export default function Index() {
     return (
         <MainLayout>
+            <Head title='Shop' />
             <Breadcrumb
                 items={[
                     {
@@ -11,14 +14,14 @@ export default function Index() {
                         href: '/shop',
                     },
                     {
-                        label: 'Shop',
+                        label: 'Vegetables',
                     },
                 ]}
                 backgroundImage="/images/breadcrumbs.png"
             />
 
-            <div className="mx-auto max-w-7xl px-4 py-16 lg:px-6">
-                Shop Content
+            <div className="flex">
+                <Bannar />
             </div>
         </MainLayout>
     );
