@@ -31,19 +31,19 @@ Route::get('/about', function () {
 Route::get('/contact', function () {
     return Inertia::render('Contact/Index');
 });
-Route::fallback(function () {
-    return Inertia::render('Errors/NotFound')
-        ->toResponse(request())
-        ->setStatusCode(404);
-});
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard/Index');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
+    })->middleware(['auth', 'verified'])->name('dashboard');
+    
+    Route::middleware('auth')->group(function () {
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        });
+        
+        Route::fallback(function () {
+            return Inertia::render('Errors/NotFound')
+                ->toResponse(request())
+                ->setStatusCode(404);
+        });
 require __DIR__.'/auth.php';
