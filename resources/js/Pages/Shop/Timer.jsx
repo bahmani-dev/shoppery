@@ -72,8 +72,10 @@ const Timer = () => {
               text-white
               w-12
               h-12
-              sm:w-14
-              sm:h-14
+              sm:w-12
+              sm:h-12
+              lg:w-20
+              lg:h-20
               md:w-16
               md:h-16
               rounded-xl
@@ -82,6 +84,7 @@ const Timer = () => {
               justify-center
               text-xl
               sm:text-2xl
+              lg:text-4xl
               md:text-3xl
               font-bold
             "
@@ -98,7 +101,8 @@ const Timer = () => {
               sm:text-white
               mt-2
               text-xs
-              sm:text-[15px]
+              sm:text-[13px]
+              md:text-[]
             "
           >
             {item.label}
