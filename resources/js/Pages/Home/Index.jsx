@@ -9,6 +9,7 @@ import IntroducingProducts from './IntroducingProducts';
 import News from './News';
 import Offers from './Offers';
 import Services from './Services';
+import Testimonials from './Testimonials';
 import Trusted from './Trusted';
 
 export default function Home() {
@@ -25,6 +26,7 @@ export default function Home() {
             <BestSellerProducts />
             <BestSeller2 />
             <News />
+            <Testimonials />
             {/* <NewsPopUp /> */}
         </MainLayout>
     );

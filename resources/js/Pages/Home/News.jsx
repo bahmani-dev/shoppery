@@ -47,7 +47,7 @@ const News = () => {
                     {cards.map((item) => {
                         return (
                             <div
-                                className="group h-[494px] w-[400px] overflow-hidden rounded-lg"
+                                className="group h-[494px] w-[400px] overflow-hidden rounded-lg shadow-lg"
                                 key={item.id}
                             >
                                 <div className="relative">
@@ -61,7 +61,7 @@ const News = () => {
                                         </p>
                                     </div>
                                 </div>
-                                <div className="flex h-[170px] flex-col justify-center gap-2 bg-white px-3 py-5">
+                                <div className="flex h-[200px] flex-col justify-center gap-4 bg-white px-5 py-5">
                                     <div className="flex gap-3">
                                         <div className="flex gap-1">
                                             <img
@@ -179,6 +179,9 @@ const News = () => {
                     src="/images/Home/News/l6.png"
                     alt=""
                 />
+            </div>
+            <div className="absolute left-[530px] top-[120px] hidden xl:block">
+                <img src="/images/Home/News/leaf.png" alt="" />
             </div>
         </AnimatedSection>
     );
