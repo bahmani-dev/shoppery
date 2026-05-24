@@ -1,47 +1,38 @@
 import MainLayout from '@/Components/Layout/MainLayout';
 import { Head } from '@inertiajs/react';
-
-import { AnimatedSection } from '@/Components/Layout/AnimatedSection';
+import BestSeller2 from './BestSeller2';
+import BestSellerProducts from './BestSellerProducts';
+import Categories from './Categories';
+import Experience from './Experience';
+import Hero from './Hero';
+import IntroducingProducts from './IntroducingProducts';
+import News from './News';
 import NewsPopUp from './NewsPopUp';
+import Offers from './Offers';
+import Partners from './Partners';
+import Services from './Services';
+import Testimonials from './Testimonials';
+import Trusted from './Trusted';
+import Video from './Video';
 
 export default function Home() {
     return (
         <MainLayout>
             <Head title="Home" />
-
-            <AnimatedSection>
-                <section className="container mx-auto px-4 py-20">
-                    <div className="grid items-center gap-10 md:grid-cols-2">
-                        <div>
-                            <p className="mb-4 font-semibold text-green-600">
-                                Welcome to Shopery
-                            </p>
-
-                            <h1 className="mb-6 text-5xl font-bold leading-tight">
-                                Fresh Organic Products Delivered To Your Door
-                            </h1>
-
-                            <p className="mb-8 text-gray-600">
-                                Start building your modern e-commerce
-                                experience.
-                            </p>
-
-                            <button className="rounded-full bg-green-600 px-6 py-3 text-white">
-                                Shop Now
-                            </button>
-                        </div>
-
-                        <div>
-                            <img
-                                src="https://images.unsplash.com/photo-1542838132-92c53300491e"
-                                alt="hero"
-                                className="rounded-2xl"
-                            />
-                        </div>
-                    </div>
-                    <NewsPopUp />
-                </section>
-            </AnimatedSection>
+            <Hero />
+            <Services />
+            <IntroducingProducts />
+            <Categories />
+            <Trusted />
+            <Experience />
+            <Offers />
+            <BestSellerProducts />
+            <BestSeller2 />
+            <News />
+            <Testimonials />
+            <Video />
+            <Partners />
+            <NewsPopUp />
         </MainLayout>
     );
 }
