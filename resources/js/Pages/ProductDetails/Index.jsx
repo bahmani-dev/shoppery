@@ -47,19 +47,21 @@ function ProductDetails() {
                                 stiffness: 130,
                                 damping: 18,
                             }}
-                            className="fixed right-0 z-[60] h-[100vh] w-[70%] bg-white sm:w-[60%] 2xl:w-[35%] lg:w-[40%]"
+                            className="fixed right-0 z-[60] h-[100vh] w-[70%] bg-white sm:w-[60%] lg:w-[40%] 2xl:w-[35]"
                         >
                             <div className="px-6">
                                 <div className="mt-6 flex h-20 w-full items-center justify-between">
                                     <h1 className="text-[20px] font-medium">
                                         Shopping Card (2)
                                     </h1>
-                                    <button
+                                    <motion.button
+                                        whileHover={{ scale: 1.2 }}
+                                        transition={{ duration: 0.3 }}
                                         onClick={() => setShowPopup(false)}
                                         className="text-[25px] font-light"
                                     >
                                         x
-                                    </button>
+                                    </motion.button>
                                 </div>
                                 <div className="flex items-center justify-between pb-2">
                                     <div className="flex items-center">
@@ -78,9 +80,13 @@ function ProductDetails() {
                                             </p>
                                         </div>
                                     </div>
-                                    <button className="flex h-[24px] w-[24px] items-center justify-center rounded-xl border-[1px] border-gray-300 font-light font-semibold text-[#666666]">
+                                    <motion.button
+                                        whileHover={{ scale: 1.2 }}
+                                        transition={{ duration: 0.3 }}
+                                        className="flex h-[24px] w-[24px] items-center justify-center rounded-xl border-[1px] border-gray-300 font-light font-semibold text-[#666666]"
+                                    >
                                         X
-                                    </button>
+                                    </motion.button>
                                 </div>
                                 <div className="flex items-center justify-between border-t">
                                     <div className="flex items-center">
@@ -99,9 +105,13 @@ function ProductDetails() {
                                             </p>
                                         </div>
                                     </div>
-                                    <button className="flex h-[24px] w-[24px] items-center justify-center rounded-xl border-[1px] border-gray-300 font-light font-semibold text-[#666666]">
+                                    <motion.button
+                                        whileHover={{ scale: 1.2 }}
+                                        transition={{ duration: 0.3 }}
+                                        className="flex h-[24px] w-[24px] items-center justify-center rounded-xl border-[1px] border-gray-300 font-light font-semibold text-[#666666]"
+                                    >
                                         X
-                                    </button>
+                                    </motion.button>
                                 </div>
                             </div>
                             <div className="absolute bottom-10 flex w-full flex-col gap-5 px-6">
@@ -150,13 +160,13 @@ function ProductDetails() {
                 ></Breadcrumb>
                 <Head title="ProductDetails"></Head>
                 <AnimatedSection>
-                    <div className="mx-10 grid grid-cols-1 lg:grid-cols-2 lg:mx-12 xl:mx-16 2xl:px-[200px]">
+                    <div className="mx-10 grid grid-cols-1 lg:mx-12 lg:grid-cols-2 xl:mx-16 2xl:px-[200px]">
                         <div className="flex items-center justify-center xl:justify-end">
                             <div>
                                 <VegetableSlider />
                             </div>
                         </div>
-                        <div className="lg:w-[100%] flex flex-col justify-center pt-[50px] lg:pt-6">
+                        <div className="flex flex-col justify-center pt-[50px] lg:w-[100%] lg:pt-6">
                             <div className="flex flex-col items-center lg:items-start">
                                 <div>
                                     <div className="flex items-center gap-4">
