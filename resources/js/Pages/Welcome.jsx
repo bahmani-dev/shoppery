@@ -37,27 +37,60 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                                     />
                                 </svg>
                             </div>
-                            <nav className="-mx-3 flex flex-1 justify-end">
+                            <nav className="-mx-3 flex flex-1 items-center justify-end gap-4">
                                 {auth.user ? (
-                                    <Link
-                                        href={route('dashboard')}
-                                        className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                                    >
-                                        Dashboard
-                                    </Link>
+                                    <>
+                                        {/* Dashboard/Profile */}
+                                        <Link
+                                            href={route('dashboard')}
+                                            className="flex items-center gap-2 rounded-md px-3 py-2 transition hover:bg-gray-100"
+                                        >
+                                            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-200">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    className="h-5 w-5 text-gray-700"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    stroke="currentColor"
+                                                    strokeWidth={2}
+                                                >
+                                                    <path
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        d="M5.121 17.804A9 9 0 1118.88 17.8M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                                                    />
+                                                </svg>
+                                            </div>
+
+                                            <span className="font-medium text-black">
+                                                {auth.user.name}
+                                            </span>
+                                        </Link>
+
+                                        {/* Logout */}
+                                        <Link
+                                            href={route('logout')}
+                                            method="post"
+                                            as="button"
+                                            className="rounded-md bg-red-500 px-4 py-2 text-white transition hover:bg-red-600"
+                                        >
+                                            Logout
+                                        </Link>
+                                    </>
                                 ) : (
                                     <>
                                         <Link
                                             href={route('login')}
-                                            className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                            className="rounded-md px-3 py-2 text-black transition hover:text-black/70"
                                         >
                                             Log in
                                         </Link>
+
                                         <Link
                                             href={route('register')}
-                                            className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                            className="rounded-md px-3 py-2 text-black transition hover:text-black/70"
                                         >
-                                            Register
+                                            Registerbnknkm
                                         </Link>
                                     </>
                                 )}

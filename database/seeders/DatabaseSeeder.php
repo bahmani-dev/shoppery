@@ -2,33 +2,29 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use App\Models\User;
+use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Product;
-use App\Models\Order;
-use App\Models\Review;
+use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
+    /**
+     * Seed the application's database.
+     */
     public function run(): void
     {
-        User::factory(200)
-            ->has(\App\Models\Address::factory()->count(2))
-            ->has(\App\Models\Billing::factory()->count(2))
-            ->has(\App\Models\Cart::factory())
-            ->has(\App\Models\Wishlist::factory()->count(3))
-            ->has(\App\Models\Order::factory()->count(2))
-            ->create();
 
-        Product::factory(50)
-            ->has(\App\Models\ProductAttribute::factory()->count(3))
-            ->has(\App\Models\ProductImage::factory()->count(2))
-            ->has(\App\Models\ProductTag::factory()->count(2))
-            ->has(\App\Models\Review::factory()->count(5))
-            ->create();
+        $this->call(UserSeeder::class);
 
-        Order::factory(20)
-            ->has(\App\Models\OrderItem::factory()->count(3))
-            ->create();
+        $categories = Category::factory(20)->create();
+
+        $brands = Brand::factory(15)->create();
+
+        Product::factory(100)->make()->each(function ($product) use ($categories, $brands) {
+            $product->category_id = $categories->random()->id;
+            $product->brand_id = $brands->random()->id;
+            $product->save();
+        });
     }
 }

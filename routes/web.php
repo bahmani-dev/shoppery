@@ -1,9 +1,9 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Controllers\ProductController;
 
 Route::get('/', function () {
     return Inertia::render('Home/Index');
@@ -17,13 +17,13 @@ Route::get('/cart', function () {
 });
 
 Route::get('/blogs', function () {
-    return inertia::render('Blog/Index');
+    return Inertia::render('Blog/Index');
 });
-
-Route::get('/wishlist', function () {
-    return Inertia::render('Wishlist/Index');
+Route::middleware('auth')->group(function () {
+    Route::get('/wishlist', function () {
+        return Inertia::render('Wishlist/Index');
+    });
 });
-
 
 Route::get('/checkout', function () {
     return Inertia::render('Checkout/Index');
@@ -47,18 +47,17 @@ Route::get('/settings', function () {
 });
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard/Index');
-    })->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-    Route::middleware('auth')->group(function () {
-        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-        });
-
-        Route::fallback(function () {
-            return Inertia::render('Errors/NotFound')
-                ->toResponse(request())
-                ->setStatusCode(404);
-        });
+Route::fallback(function () {
+    return Inertia::render('Errors/NotFound')
+        ->toResponse(request())
+        ->setStatusCode(404);
+});
 require __DIR__.'/auth.php';
