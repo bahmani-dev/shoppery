@@ -25,7 +25,6 @@ class BrandSeeder extends Seeder
         foreach ($brands as $brand) {
             Brand::create([
                 'name' => $brand,
-                'description' => $this->faker->sentence()
             ]);
         }
     }

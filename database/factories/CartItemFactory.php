@@ -2,14 +2,15 @@
 
 namespace Database\Factories;
 
+use App\Models\CartItem;
+use App\Models\Product;
 use App\Models\Cart;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Cart>
+ * @extends Factory<CartItem>
  */
-class CartFactory extends Factory
+class CartItemFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,7 +20,9 @@ class CartFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::factory(),
+           'product_id' => Product::factory(),
+           'cart_id' => Cart::factory(),
+           'quantity' => fake()->numberBetween()
         ];
     }
 }

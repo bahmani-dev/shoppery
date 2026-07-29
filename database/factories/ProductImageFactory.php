@@ -19,7 +19,7 @@ class ProductImageFactory extends Factory
     {
         return [
             'product_id' => Product::factory(),
-            'image_url' => $this->faker->imageUrl(640, 480, 'products', true),
+            'image_url' => fake()->imageUrl(640, 480, 'products', true),
         ];
     }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
@@ -57,19 +58,20 @@ class Product extends Model
     }
 
     public function cartItems(){
-        return $this->hasMany(CartItems::class);
+        return $this->hasMany(CartItem::class);
     }
 
     public function orderItems(){
-        return $this->hasMany(OrderItems::class);
+        return $this->hasMany(OrderItem::class);
     }
 
     public function tags(){
-        return $this->belongsToMany(ProductTag::class,
-        'product_id'
-        );
+            return $this->belongsToMany(Tag::class, 'product_tags');
     }
-
+public function productAttributes(): HasMany
+{
+    return $this->hasMany(ProductAttribute::class);
+}
 
 
 

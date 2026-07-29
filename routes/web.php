@@ -4,6 +4,10 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\WishlistController;
+use App\Controllers\CartController;
+
+
 
 Route::get('/', function () {
     return Inertia::render('Home/Index');
@@ -19,11 +23,14 @@ Route::get('/cart', function () {
 Route::get('/blogs', function () {
     return Inertia::render('Blog/Index');
 });
-Route::middleware('auth')->group(function () {
-    Route::get('/wishlist', function () {
-        return Inertia::render('Wishlist/Index');
-    });
+
+Route::get('/blogs/singleBlog', function () {
+    return inertia::render('Blogs/SingleBlock');
 });
+
+Route::get('/wishlist', [WishlistController::class, 'index']);
+
+Route::post('/cart/add/{productid}', [CartController::class, 'addToCart'])->middleware('auth');
 
 Route::get('/checkout', function () {
     return Inertia::render('Checkout/Index');
@@ -45,6 +52,9 @@ Route::get('/order-details', function () {
 Route::get('/settings', function () {
     return Inertia::render('Account/Settings');
 });
+
+Route::post('/wishlist', [WishlistController::class, 'store']);
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard/Index');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -61,3 +71,11 @@ Route::fallback(function () {
         ->setStatusCode(404);
 });
 require __DIR__.'/auth.php';
+
+
+// fake routes
+Route::get('/show-product/{product}', [SecondProduct::class, 'index' ])->name('product.show');
+
+Route::get('/product/{product}/edit', [SecondProduct::class, 'edit'])->name('product.edit');
+
+Route::delete('/product/{product}', [SecondProduct::class, 'delete'])->name('product.delete');

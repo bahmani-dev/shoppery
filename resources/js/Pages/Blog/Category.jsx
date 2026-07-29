@@ -25,7 +25,7 @@ const Category = () => {
                         </p>
 
                         <p className="mb-3">
-                            Vegetables <span className="ml-[215px]">(150)</span>
+                            Vegetables <span className="ml-[210px]">(150)</span>
                         </p>
 
                         <p className="mb-3">

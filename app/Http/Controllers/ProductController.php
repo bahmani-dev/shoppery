@@ -11,6 +11,7 @@ class ProductController extends Controller
     {
         $products = Product::with(['category', 'brand', 'images'])->paginate(12)->through(function ($product) {
             return [
+                'id' => $product->id,
                 'title' => $product->name,
                 'subtitle' => $product->subtitle,
                 'sku' => $product->sku,
@@ -42,5 +43,17 @@ class ProductController extends Controller
         return Inertia::render('ProductDetails/Index', [
             'product' => $product,
         ]);
+    }
+
+    public function store(Request $request){
+        $validated = $request->validated([
+            "name" => "string|max:255",
+            "price" => "decimal",
+            "description" => "string|min:255",
+        ]);
+
+        Product::create($validated);
+
+        redirect()->route('shop.products');
     }
 }

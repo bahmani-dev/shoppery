@@ -21,7 +21,7 @@ class ProductAttributeFactory extends Factory
         return [
             'product_id' => Product::factory(),
             'attribute_id' => Attribute::factory(),
-            'value' => $this->faker->word(),
+            'value' => fake()->word(),
         ];
     }
 }

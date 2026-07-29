@@ -52,7 +52,7 @@ export default function Navbar() {
             href: '/blogs',
             links: [
                 { name: 'Blog List', href: '/blogs' },
-                { name: 'Latest News', href: '/blogs/latest' },
+                { name: 'Single Blog', href: '/blogs/singleBlog' },
                 { name: 'Organic Foods', href: '/blogs/organic' },
             ],
         },

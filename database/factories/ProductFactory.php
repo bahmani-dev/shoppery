@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Product;
+use App\Models\Category;
+use App\Models\Brand;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,8 +20,8 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         return [
-            'category_id' => fake()->numberBetween(1, 100),
-            'brand_id' => fake()->numberBetween(1, 100),
+            'category_id' => Category::inRandomOrder()->first()->id ?? 1,
+            'brand_id' => Brand::inRandomOrder()->first()->id ?? 1,
             'name' => fake()->word(),
             'subtitle'=> fake()->realText(100),
             'sku' => fake()->bothify('???-######'),
