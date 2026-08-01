@@ -2,14 +2,21 @@
 
 namespace Database\Seeders;
 
-use App\Models\Brand;
-use App\Models\Category;
-use App\Models\Product;
-use Illuminate\Database\Seeder;
-use App\Models\User;
-use App\Models\Product;
+use App\Models\Address;
+use App\Models\Billing;
+use App\Models\Cart;
+use App\Models\CartItem;
 use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\Product;
+use App\Models\ProductAttribute;
+use App\Models\ProductImage;
+use App\Models\Review;
+use App\Models\ShippingAddress;
 use App\Models\Tag;
+use App\Models\User;
+use App\Models\Wishlist;
+use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -29,24 +36,24 @@ class DatabaseSeeder extends Seeder
 
         // SECOND: Create users with their relationships
         User::factory(200)
-            ->has(\App\Models\Address::factory()->count(2))
-            ->has(\App\Models\ShippingAddress::factory()->count(2))
-            ->has(\App\Models\Billing::factory()->count(2))
+            ->has(Address::factory()->count(2))
+            ->has(ShippingAddress::factory()->count(2))
+            ->has(Billing::factory()->count(2))
             ->has(
-                \App\Models\Cart::factory()->has(
-                    \App\Models\CartItem::factory()->count(3),
+                Cart::factory()->has(
+                    CartItem::factory()->count(3),
                     'cartItem'
                 )
             )
-            ->has(\App\Models\Wishlist::factory()->count(3))
-            ->has(\App\Models\Order::factory()->count(2))
+            ->has(Wishlist::factory()->count(3))
+            ->has(Order::factory()->count(2))
             ->create();
 
         // THIRD: Create products
         $products = Product::factory(50)
-            ->has(\App\Models\ProductAttribute::factory()->count(3), 'productAttributes')
-            ->has(\App\Models\ProductImage::factory()->count(2), 'images')
-            ->has(\App\Models\Review::factory()->count(5), 'reviews')
+            ->has(ProductAttribute::factory()->count(3), 'productAttributes')
+            ->has(ProductImage::factory()->count(2), 'images')
+            ->has(Review::factory()->count(5), 'reviews')
             ->create();
 
         // Attach tags to products
@@ -60,7 +67,7 @@ class DatabaseSeeder extends Seeder
 
         // FOURTH: Create orders
         Order::factory(20)
-            ->has(\App\Models\OrderItem::factory()->count(3))
+            ->has(OrderItem::factory()->count(3))
             ->create();
     }
 }
