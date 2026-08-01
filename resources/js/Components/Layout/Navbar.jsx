@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import {
     ChevronDown,
     Heart,
@@ -7,6 +7,7 @@ import {
     Phone,
     Search,
     ShoppingBag,
+    User,
     X,
 } from 'lucide-react';
 import { useState } from 'react';
@@ -14,6 +15,7 @@ import { useState } from 'react';
 export default function Navbar() {
     const [mobileMenu, setMobileMenu] = useState(false);
     const [openMobileDropdown, setOpenMobileDropdown] = useState(null);
+    const { auth } = usePage().props;
 
     const menuItems = [
         {
@@ -89,15 +91,52 @@ export default function Navbar() {
 
                             <div className="h-4 w-px bg-gray-600" />
 
-                            <Link href="/login" className="hover:text-white">
-                                Sign In
-                            </Link>
+                            {auth.user ? (
+                                <>
+                                    <Link
+                                        href={route('dashboard')}
+                                        className="flex items-center gap-2 hover:text-white"
+                                    >
+                                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-600">
+                                            <User
+                                                size={16}
+                                                className="text-white"
+                                            />
+                                        </div>
 
-                            <span>/</span>
+                                        <span>{auth.user.name}</span>
+                                    </Link>
 
-                            <Link href="/register" className="hover:text-white">
-                                Sign Up
-                            </Link>
+                                    <span>|</span>
+
+                                    <Link
+                                        href={route('logout')}
+                                        method="post"
+                                        as="button"
+                                        className="hover:text-white"
+                                    >
+                                        Logout
+                                    </Link>
+                                </>
+                            ) : (
+                                <>
+                                    <Link
+                                        href={route('login')}
+                                        className="hover:text-white"
+                                    >
+                                        Sign In
+                                    </Link>
+
+                                    <span>/</span>
+
+                                    <Link
+                                        href={route('register')}
+                                        className="hover:text-white"
+                                    >
+                                        Sign Up
+                                    </Link>
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -404,20 +443,49 @@ export default function Navbar() {
                     {/* MOBILE EXTRA LINKS */}
                     <div className="mt-8 border-t border-gray-200 pt-6">
                         <div className="flex flex-col gap-4">
-                            <Link
-                                href="/login"
-                                className="font-medium text-gray-700 hover:text-green-600"
-                            >
-                                Sign In
-                            </Link>
+                            {auth.user ? (
+                                <>
+                                    <Link
+                                        href={route('dashboard')}
+                                        onClick={() => setMobileMenu(false)}
+                                        className="flex items-center gap-3 font-medium text-gray-700 hover:text-green-600"
+                                    >
+                                        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-green-600">
+                                            <User
+                                                size={18}
+                                                className="text-white"
+                                            />
+                                        </div>
 
-                            <Link
-                                href="/register"
-                                className="font-medium text-gray-700 hover:text-green-600"
-                            >
-                                Sign Up
-                            </Link>
+                                        <span>{auth.user.name}</span>
+                                    </Link>
 
+                                    <Link
+                                        href={route('logout')}
+                                        method="post"
+                                        as="button"
+                                        className="text-left font-medium text-red-600"
+                                    >
+                                        Logout
+                                    </Link>
+                                </>
+                            ) : (
+                                <>
+                                    <Link
+                                        href={route('login')}
+                                        className="font-medium text-gray-700 hover:text-green-600"
+                                    >
+                                        Sign In
+                                    </Link>
+
+                                    <Link
+                                        href={route('register')}
+                                        className="font-medium text-gray-700 hover:text-green-600"
+                                    >
+                                        Sign Up
+                                    </Link>
+                                </>
+                            )}
                             <div className="mt-4 flex items-center gap-3">
                                 <Phone size={18} className="text-gray-700" />
 
