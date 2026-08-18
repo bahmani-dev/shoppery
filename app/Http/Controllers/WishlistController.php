@@ -11,7 +11,7 @@ class WishlistController extends Controller
     public function store(Request $request)
     {
         $exists = Wishlist::where('product_id', $request->product_id)
-        ->where('user_id', 1)
+        ->where('user_id', auth()->user()->id)
         ->first();
 
         if($exists){
@@ -22,7 +22,7 @@ class WishlistController extends Controller
 
         Wishlist::create([
             'product_id' => $request->product_id,
-            'user_id' => 1,
+            'user_id' => auth()->user()->id,
         ]);
 
         return redirect()->back()->with(
@@ -35,10 +35,18 @@ class WishlistController extends Controller
 
     public function index()
     {
-        $wishlists = Wishlist::with('product')->get();
+        $wishlists = Wishlist::with('product')->where('user_id', auth()->user()->id)->get();
         
         return Inertia::render('Wishlist/Index', [
             'wishlists' => $wishlists
         ]);
+    }
+
+    public function destroy($id)
+    {
+        $wishlist = Wishlist::findOrFail($id);
+        $wishlist->delete();
+
+        return redirect()->back()->with('message', 'Removed from wishlist!');
     }
 }

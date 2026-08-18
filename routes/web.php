@@ -6,6 +6,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductUpload;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -23,7 +25,6 @@ Route::get('/blogs/singleBlog', function () {
     return Inertia::render('Blogs/SingleBlock');
 });
 
-Route::get('/wishlist', [WishlistController::class, 'index']);
 Route::get('/shop', [ProductController::class, 'index'])->name('shop.products');
 
 Route::middleware('auth')->group(function () {
@@ -44,23 +45,22 @@ Route::get('/about', function () {
 Route::get('/contact', function () {
     return Inertia::render('Contact/Index');
 });
-Route::get('/orders', function () {
-    return Inertia::render('OrderHistory/Index');
-});
-Route::get('/order-details', function () {
-    return Inertia::render('OrderHistory/OrderDetails');
-});
-Route::get('/settings', function () {
-    return Inertia::render('Account/Settings');
-});
 
-Route::post('/wishlist', [WishlistController::class, 'store']);
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard/Index');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [AccountController::class, 'indexDash'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/settings', [AccountController::class, 'index']);
+    Route::put('/settings', [AccountController::class, 'update']);
+    Route::put('/dashboardUpdate', [AccountController::class, 'updateDash']);
+    Route::put('/dashboardUpdateAddress', [AccountController::class, 'updateDashAdd']);
+    Route::put('/settings/billing', [AccountController::class, 'updateBilling']);
+    Route::put('/settings/password', [AccountController::class, 'updatePassword'])->name('settings.password');
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/order-details/{id}', [OrderController::class, 'show'])->name('order-details.show');
+    Route::post('/wishlist', [WishlistController::class, 'store']);
+    Route::get('/wishlist', [WishlistController::class, 'index']);
+    Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy']);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

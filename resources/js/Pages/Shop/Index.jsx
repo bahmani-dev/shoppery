@@ -32,7 +32,7 @@ export default function Index({ products = [] }) {
                             {props.flash?.message}
                         </div>
                     )}
-                </div>
+            </div>
             <Breadcrumb
                 items={[
                     {

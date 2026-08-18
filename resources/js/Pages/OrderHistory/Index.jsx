@@ -4,10 +4,11 @@ import MainLayout from '@/Components/Layout/MainLayout';
 import { Head } from '@inertiajs/react';
 import { useState } from 'react';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
-import orders from '../Account/Orders';
 import OrdersTable from '../Account/OrdersTable';
 
-export default function OrderHistory() {
+export default function OrderHistory({orderso}) {
+    console.log(orderso);
+
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = 3;
     return (
@@ -31,7 +32,7 @@ export default function OrderHistory() {
                         <h2 className="p-4 text-lg font-medium leading-[150%] text-[#1A1A1A]">
                             Order History
                         </h2>
-                        <OrdersTable orders={orders} />
+                        <OrdersTable orders={orderso} />
                         <div className="mt-8 flex items-center justify-center gap-2">
                             {/* Previous */}
                             <button

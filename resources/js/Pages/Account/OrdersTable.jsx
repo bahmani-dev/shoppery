@@ -36,10 +36,10 @@ export default function OrdersTable({ orders, limit }) {
                                     {order.id}
                                 </td>
                                 <td className="whitespace-nowrap px-3 py-4 text-[14px] font-normal leading-[150%] text-[#333333] sm:px-6">
-                                    {order.date}
+                                    {order.order_date}
                                 </td>
                                 <td className="font-meduim whitespace-nowrap px-3 py-4 text-[14px] leading-[150%] text-[#333333] sm:px-6">
-                                    {order.total}
+                                    {order.total_price}
                                 </td>
                                 <td className="px-3 py-4 text-[14px] font-normal leading-[150%] text-[#333333] sm:px-6">
                                     {order.status}
@@ -47,7 +47,7 @@ export default function OrdersTable({ orders, limit }) {
                                 <td>
                                     <button
                                         onClick={() =>
-                                            router.visit('/order-details')
+                                            router.visit(`/order-details/${order.id}`)
                                         }
                                         className="whitespace-nowrap text-[14px] font-medium leading-[150%] text-[#00B207]"
                                     >
@@ -75,9 +75,9 @@ export default function OrdersTable({ orders, limit }) {
                             </div>
                             <span
                                 className={`rounded-full px-3 py-1 text-xs font-medium ${
-                                    order.status === 'Completed'
+                                    order.status === 'delivered'
                                         ? 'bg-green-100 text-green-700'
-                                        : order.status === 'On the way'
+                                        : order.status === 'pending'
                                           ? 'bg-yellow-100 text-yellow-700'
                                           : order.status === 'Processing'
                                             ? 'bg-blue-100 text-blue-700'
@@ -90,17 +90,21 @@ export default function OrdersTable({ orders, limit }) {
                         <div className="mt-3 space-y-3 text-sm text-gray-700">
                             <div className="flex justify-between">
                                 <span className="text-gray-500">Date</span>
-                                <span>{order.date}</span>
+                                <span>{order.order_date}</span>
                             </div>
                             <div className="flex justify-between">
                                 <span className="text-gray-500">Total</span>
                                 <span className="font-medium">
-                                    {order.total}
+                                    {order.total_price}
                                 </span>
                             </div>
                         </div>
                         <div className="mt-4">
-                            <button className="w-full rounded-lg bg-[#00B207] py-2 text-sm font-medium text-white transition hover:bg-green-700">
+                            <button 
+                            onClick={() =>
+                                router.visit(`/order-details/${order.id}`)
+                            }
+                            className="w-full rounded-lg bg-[#00B207] py-2 text-sm font-medium text-white transition hover:bg-green-700">
                                 View Details
                             </button>
                         </div>

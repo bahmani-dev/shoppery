@@ -8,8 +8,16 @@ import Button from './Button';
 import Input from './Input';
 import LabelForm from './LabelForm';
 import PasswordInput from './PasswordInput';
+import {router} from '@inertiajs/react';
 
-export default function Settings() {
+export default function Settings({user, addresses}) {
+    console.log(user);
+    console.log(addresses);
+
+
+
+
+
     const [accountLoading, setAccountLoading] = useState(false);
     const [billingLoading, setBillingLoading] = useState(false);
     const [passwordLoading, setPasswordLoading] = useState(false);
@@ -36,8 +44,26 @@ export default function Settings() {
         email: 'dianne.russell@gmail.com',
         phone: '(603) 555-0123',
     };
-    const [accountData, setAccountData] = useState(INITIAL_ACCOUNT);
-    const [billingData, setBillingData] = useState(INITIAL_BILLING);
+    const [accountData, setAccountData] = useState({
+        ...INITIAL_ACCOUNT,
+        firstName: user.name,
+        lastName: user.lastname,
+        email: user.email,
+        phone: user.phonenumber,
+        image: user.profile_image,
+    });
+
+    const [billingData, setBillingData] = useState({
+        ...INITIAL_BILLING,
+        firstName: user.name,
+        lastName: user.lastname,
+        street: addresses.address_text,
+        country: addresses.country,
+        state: addresses.city,
+        zipCode: addresses.postal_code,
+        email: user.email,
+        phone: user.phonenumber,
+    });
 
     const accountChanged = !isEqual(accountData, INITIAL_ACCOUNT);
     const billingChanged = !isEqual(billingData, INITIAL_BILLING);
@@ -71,26 +97,27 @@ export default function Settings() {
         }));
     };
 
-    const handlePasswordSubmit = async (e) => {
+    const handlePasswordSubmit = (e) => {
         e.preventDefault();
+
         if (!validatePassword()) {
             return;
         }
+
         setPasswordLoading(true);
 
-        try {
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-
-            toast.success('Password updated successfully');
-
-            setPasswordData({
-                currentPassword: '',
-                newPassword: '',
-                confirmPassword: '',
-            });
-        } finally {
-            setPasswordLoading(false);
-        }
+        router.put('/settings/password', {
+            currentPassword: passwordData.currentPassword,
+            newPassword: passwordData.newPassword,
+            confirmPassword: passwordData.confirmPassword,
+        }, {
+            onSuccess: () => {
+                toast.success('Account updated successfully');
+            },
+            onFinish: () => {
+                setPasswordLoading(false);
+            },
+        });
     };
 
     const validatePassword = () => {
@@ -168,13 +195,15 @@ export default function Settings() {
 
         setAccountLoading(true);
 
-        try {
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+       router.put('/settings', accountData, {
+            onSuccess: () => {
+                toast.success('Account updated successfully');
+            },
+            onFinish: () => {
+                setAccountLoading(false);
+            },
+        });
 
-            toast.success('Account updated successfully');
-        } finally {
-            setAccountLoading(false);
-        }
     };
 
     const handleAccountChange = (field, value) => {
@@ -195,13 +224,14 @@ export default function Settings() {
             return toast.error('Invalid email');
         } else setBillingLoading(true);
 
-        try {
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-
-            toast.success('Billing address updated');
-        } finally {
-            setBillingLoading(false);
-        }
+        router.put('/settings/billing', billingData, {
+            onSuccess: () => {
+                toast.success('Billing address updated successfully');
+            },
+            onFinish: () => {
+                setBillingLoading(false);
+            },
+        });
     };
 
     const handleBillingChange = (field, value) => {

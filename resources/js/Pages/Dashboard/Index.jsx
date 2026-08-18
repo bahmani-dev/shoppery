@@ -10,20 +10,20 @@ import OrdersTable from '../Account/OrdersTable';
 import Profile from '../Account/Profile';
 import ProfileModal from '../Account/ProfileModel';
 
-export default function Dashboard() {
+export default function Dashboard({userd, addressesd}) {
     const [editProfile, setEditProfile] = useState(false);
 
     const [user, setUser] = useState({
-        name: 'Dianne Russell',
+        name: userd.name,
         role: 'Customer',
-        img: '/images/profileImg.png',
+        img: userd.profile_image,
     });
 
     const [address, setAddress] = useState({
-        name: 'Dianne Russell',
-        address: '4140 Parker Rd. Allentown, New Mexico 31134',
-        email: 'dainne.ressel@gmail.com',
-        phone: '(671) 555-0110',
+        name: userd.name,
+        address: addressesd.address_text,
+        email: userd.email,
+        phone: userd.phonenumber,
     });
 
     const [isModalOpen, setIsModalOpen] = useState(false);

@@ -3,7 +3,10 @@ import AccountLayout from '@/Components/Layout/AccountLayout';
 import MainLayout from '@/Components/Layout/MainLayout';
 import { Head, router } from '@inertiajs/react';
 
-export default function Orderdetails() {
+export default function Orderdetails({order, user, address}) {
+    console.log(user);
+    console.log(address);
+    console.log(order);
     const steps = ['Order received', 'Processing', 'On the way', 'Delivered'];
     const currentStep = 1;
     const headers = ['PRODUCT', 'PRICE', 'QUANTITY', 'SUBTOTAL'];
@@ -30,6 +33,14 @@ export default function Orderdetails() {
             subtotal: '$28.00',
         },
     ];
+
+    const calculateDiscount = () => {
+        return order.order_item[0].product.discount * 100;
+    }
+
+    const handleTotal = () => {
+        return +((1 - order.order_item[0].product.discount) * order.total_price).toFixed(2);
+    }
     return (
         <>
             <MainLayout>
@@ -60,11 +71,11 @@ export default function Orderdetails() {
                                 </h3>
                                 <p className="text-[14px] font-normal leading-[150%] text-[#4D4D4D]">
                                     {' '}
-                                    • April 24, 2021
+                                    • {order.order_date}
                                 </p>
                                 <span className="text-[14px] font-normal leading-[150%] text-[#4D4D4D]">
                                     {' '}
-                                    • 3 Products
+                                    • {order.order_item.length} Products
                                 </span>
                             </div>
                             <button
@@ -82,17 +93,17 @@ export default function Orderdetails() {
                                     Billing Address
                                 </p>
                                 <h3 className="mt-4 text-base font-normal leading-[150%] text-[#1A1A1A]">
-                                    Dainne Russell
+                                    {user.name}
                                 </h3>
                                 <p className="mt-2 text-[14px] font-normal leading-[150%] text-[#666666]">
-                                    4140 Parker Rd. Allentown, New Mexico 31134
+                                    {address.address_text}
                                 </p>
                                 <div className="mt-4">
                                     <span className="text-xs font-medium uppercase leading-[100%] text-[#999999]">
                                         Email
                                     </span>
                                     <p className="text-[14px] font-normal leading-[150%] text-[#1A1A1A]">
-                                        dainne.ressell@gmail.com
+                                        {user.email}
                                     </p>
                                 </div>
                                 <div className="mt-4">
@@ -100,7 +111,7 @@ export default function Orderdetails() {
                                         phone
                                     </span>
                                     <p className="text-[14px] font-normal leading-[150%] text-[#1A1A1A]">
-                                        (671) 555-0110
+                                        {user.phonenumber}
                                     </p>
                                 </div>
                             </div>
@@ -110,17 +121,17 @@ export default function Orderdetails() {
                                     Shipping Address
                                 </p>
                                 <h3 className="mt-4 text-base font-normal leading-[150%] text-[#1A1A1A]">
-                                    Dainne Russell
+                                    {user.name}
                                 </h3>
                                 <p className="mt-2 text-[14px] font-normal leading-[150%] text-[#666666]">
-                                    4140 Parker Rd. Allentown, New Mexico 31134
+                                    {order.shipping_address.text}
                                 </p>
                                 <div className="mt-4">
                                     <span className="text-xs font-medium uppercase leading-[100%] text-[#999999]">
                                         Email
                                     </span>
                                     <p className="text-[14px] font-normal leading-[150%] text-[#1A1A1A]">
-                                        dainne.ressell@gmail.com
+                                        {user.email}
                                     </p>
                                 </div>
                                 <div className="mt-4">
@@ -128,7 +139,7 @@ export default function Orderdetails() {
                                         phone
                                     </span>
                                     <p className="text-[14px] font-normal leading-[150%] text-[#1A1A1A]">
-                                        (671) 555-0110
+                                        {user.phonenumber}
                                     </p>
                                 </div>
                             </div>
@@ -140,7 +151,7 @@ export default function Orderdetails() {
                                             Order Id
                                         </p>
                                         <p className="mt-2 text-[14px] font-normal leading-[150%] text-[#1A1A1A]">
-                                            #4152
+                                            #{order.id}
                                         </p>
                                     </div>
                                     <div className="border-b p-4">
@@ -148,7 +159,7 @@ export default function Orderdetails() {
                                             Payment Method
                                         </p>
                                         <p className="mt-2 text-[14px] font-normal leading-[150%] text-[#1A1A1A]">
-                                            Paypal
+                                            {order.payment_method}
                                         </p>
                                     </div>
                                 </div>
@@ -159,7 +170,7 @@ export default function Orderdetails() {
                                                 Subtotal:
                                             </span>
                                             <span className="text-[14px] font-medium leading-[150%] text-[#1A1A1A]">
-                                                $365.00
+                                                {order.total_price}
                                             </span>
                                         </div>
 
@@ -168,7 +179,7 @@ export default function Orderdetails() {
                                                 Discount:
                                             </span>
                                             <span className="text-[14px] font-medium leading-[150%] text-[#1A1A1A]">
-                                                20%
+                                                % {calculateDiscount()}
                                             </span>
                                         </div>
 
@@ -186,7 +197,7 @@ export default function Orderdetails() {
                                                 Total
                                             </span>
                                             <span className="text-lg font-semibold leading-[150%] text-[#2C742F]">
-                                                $84.00
+                                                $ {handleTotal()}
                                             </span>
                                         </div>
                                     </div>
@@ -279,29 +290,29 @@ export default function Orderdetails() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {products.map((product) => (
+                                    {order.order_item.map((item) => (
                                         <tr
-                                            key={product.name}
+                                            key={item.id}
                                             className="border-b"
                                         >
                                             <td className="p-4">
                                                 <div className="flex items-center gap-4 text-sm font-medium leading-[150%] text-[#1A1A1A]">
                                                     <img
-                                                        src={product.image}
-                                                        alt={product.name}
+                                                        src={item.product.images[0].image_url}
+                                                        alt={item.product.name}
                                                         className="h-16 w-16"
                                                     />
-                                                    {product.name}
+                                                    {item.product.name}
                                                 </div>
                                             </td>
                                             <td className="px-4 py-5 text-sm font-normal leading-[150%] text-[#1A1A1A]">
-                                                {product.price}
+                                                {item.product.price}
                                             </td>
                                             <td className="px-4 py-5 text-sm font-normal leading-[150%] text-[#1A1A1A]">
-                                                {product.quantity}
+                                                {item.product.quantity}
                                             </td>
                                             <td className="px-4 py-5 text-sm font-medium leading-[150%] text-[#1A1A1A]">
-                                                {product.subtotal}
+                                                {item.product.price}
                                             </td>
                                         </tr>
                                     ))}

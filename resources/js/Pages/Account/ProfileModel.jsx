@@ -1,10 +1,12 @@
+import { router } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 
 export default function ProfileModal({ user, onClose, onSave }) {
     const [formData, setFormData] = useState({
         name: user.name,
         role: user.role,
-        img: user.img,
+        img: user.profile_image,
     });
 
     useEffect(() => {
@@ -15,12 +17,10 @@ export default function ProfileModal({ user, onClose, onSave }) {
         };
     }, []);
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-
+   const handleChange = (field, value) => {
         setFormData((prev) => ({
             ...prev,
-            [name]: value,
+            [field]: value,
         }));
     };
 
@@ -40,6 +40,14 @@ export default function ProfileModal({ user, onClose, onSave }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         onSave(formData);
+        router.put('/dashboardUpdate', formData, {
+            onSuccess: () => {
+                console.log("sent");
+                toast.success('Account updated successfully');
+            },
+            onFinish: () => {
+            },
+        });
     };
 
     return (
@@ -78,7 +86,9 @@ export default function ProfileModal({ user, onClose, onSave }) {
                             type="text"
                             name="name"
                             value={formData.name}
-                            onChange={handleChange}
+                            onChange={(e)=>{
+                                handleChange('name', e.target.value)
+                            }}
                             className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition focus:border-[#00B207]"
                         />
                     </div>

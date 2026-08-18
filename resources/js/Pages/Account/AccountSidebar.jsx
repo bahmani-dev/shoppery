@@ -23,6 +23,7 @@ export default function AccountSidebar() {
             label: 'Wishlist',
             href: '/wishlist',
             icon: '/images/wishlist.svg',
+            activeIcon: '/images/wishlistBlack.png',
         },
         {
             label: 'Shopping Cart',
@@ -65,6 +66,7 @@ export default function AccountSidebar() {
                         }`}
                     >
                         <img
+                            className='h-[24px] w-[24px]'
                             src={isActive ? item.activeIcon : item.icon}
                             alt=""
                         />

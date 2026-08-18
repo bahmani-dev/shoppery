@@ -18,7 +18,6 @@ const addToCart = () => {
         router.post('/wishlist', {
             product_id: productID
         })
-        console.log(productID);
     }
 
     return (

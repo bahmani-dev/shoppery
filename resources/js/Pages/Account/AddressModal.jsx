@@ -1,4 +1,6 @@
+import { router } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 
 export default function AddressModal({ address, onClose, onSave }) {
     useEffect(() => {
@@ -13,6 +15,14 @@ export default function AddressModal({ address, onClose, onSave }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         onSave(formData);
+        router.put('/dashboardUpdateAddress', formData, {
+            onSuccess: () => {
+                console.log("sent");
+                toast.success('Account updated successfully');
+            },
+                onFinish: () => {
+            },
+        });
     };
 
     return (
